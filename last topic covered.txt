@@ -1,1 +1,2 @@
-Last topic discussed
+angular project files explained
+Next: Start with angular project
