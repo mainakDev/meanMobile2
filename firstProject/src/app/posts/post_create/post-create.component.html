@@ -1,3 +1,5 @@
-<textarea rows="6"></textarea>
+<!-- <textarea rows="6" [value]="newPost" #postInput></textarea> -->
+<textarea rows="6" [(ngModel)]="enteredValue"></textarea>
 <!-- event binding -->
 <button type="submit" (click)="addPost()">Submit</button>
+<p>{{newPost}}</p>
