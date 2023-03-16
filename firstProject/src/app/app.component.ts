@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'firstProject';
+  postCreated = [];
+  
+  onPostAdded(post){
+    this.postCreated.push(post);
+    console.log(this.postCreated);
+  }
+  
 }
