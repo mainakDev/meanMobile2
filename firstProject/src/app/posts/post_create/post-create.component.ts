@@ -10,7 +10,7 @@ import { Post } from '../post.model';
 export class PostCreateComponent{
     title: string = '';
     content: string = '';
-    @Output() postCreated = new EventEmitter();
+    @Output() postCreated = new EventEmitter<Post>(); //generic
     addPost(){
         const post: Post = {
             title: this.title,
