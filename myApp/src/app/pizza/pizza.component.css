@@ -1,0 +1,5 @@
+.loginPizza{
+
+    display: flex; 
+    flex-direction: column;
+}
