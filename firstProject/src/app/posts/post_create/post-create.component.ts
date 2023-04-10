@@ -20,5 +20,6 @@ export class PostCreateComponent{
         if(postForm.invalid){return;}
         this.postService.addPost(postForm.value.title,postForm.value.content)
         // this.postCreated.emit(post);
+        postForm.resetForm();   
     }
 }
