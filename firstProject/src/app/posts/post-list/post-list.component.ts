@@ -16,7 +16,7 @@ export class PostListComponent implements OnInit{ //lifecycle hook
     posts: Post[] = [];   
 
     ngOnInit(){ //whenever a component is created
-        this.posts = this.postService.getPosts()
+        this.postService.getPosts()
         this.postSub = this.postService.getPostUpdateListener()
         .subscribe((allPosts: Post[]) => {
             this.posts = allPosts;
