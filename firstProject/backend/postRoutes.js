@@ -2,6 +2,16 @@ const express = require('express')
 
 const router = express.Router()
 
+//localhost:3000/api/posts/
+router.post('/', (req, res, next) => {
+    const post  = req.body;
+    console.log(post);
+    res.json({
+        message: 'Succesfully added POST!',
+        posts: post
+    })
+})
+
 router.get('/', (req, res, next) => {
 
     postData = [
