@@ -2,10 +2,13 @@ const express = require('express')
 const dotenv = require('dotenv').config()
 const cors = require('cors')
 const postRoutes = require('./backend/postRoutes')
+const connectDB = require('./backend/config/db')
 
 const port = process.env.PORT || 3000
 
 const app = express()
+
+connectDB()
 
 //middleware which hadles parsing incoming json data from front end
 app.use(cors())
