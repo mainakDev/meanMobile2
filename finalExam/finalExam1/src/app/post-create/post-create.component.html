@@ -1,5 +1,11 @@
-<form action="">
-    <input type="text" placeholder="title">
-    <textarea name="" id="" cols="30" rows="10" placeholder="content"></textarea>
-    <button>Add Post</button>
-</form>
+<mat-card>
+    <form (submit)="addPost(postForm)" #postForm="ngForm">
+        <mat-form-field>
+            <input matInput type="text" placeholder="title" name="title" ngModel required minlength="3">
+        </mat-form-field>
+        <mat-form-field>
+            <textarea matInput name="content" id="" rows="6" placeholder="content" ngModel required minlength="3"></textarea>
+        </mat-form-field>
+        <button mat-raised-button color="primary" type="submit">Submit</button>
+    </form>
+</mat-card>

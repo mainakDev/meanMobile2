@@ -1,40 +1,35 @@
-const express = require('express')
-
+const express = require('express');
+const Post = require('./model/postModel');
 const router = express.Router()
 
 //localhost:3000/api/posts/
 router.post('/', (req, res, next) => {
-    const post  = req.body;
+    const post  = new Post({
+        title: req.body.title,
+        content: req.body.content,
+    });
     console.log(post);
-    res.json({
+    post.save();
+    res.status(201).json({
         message: 'Succesfully added POST!',
         posts: post
     })
 })
 
 router.get('/', (req, res, next) => {
+    Post.find().then((data) => {
+        res.status(200).json({
+            message: 'posts sent sucessfully!',
+            posts: data
+        })
+    })
+})
 
-    postData = [
-        {
-            id: 'gsgi7sdf',
-            title: 'This is my first post',
-            content: 'This is the content for my first post'
-        },
-        {
-            id: '82eggf82',
-            title: 'This is my second post',
-            content: 'This is the content for my second post'
-        },
-        {
-            id: '8273gfbj',
-            title: 'This is my third post',
-            content: 'This is the content for my third post'
-        },
-    ]
-
-    res.json({
-        message: 'posts sent sucessfully!',
-        postData: postData
+router.delete('/:id', (req, res, next) => {
+    Post.deleteOne({_id: req.params.id}).then(result => {
+        res.status(200).json({
+            message: 'Post sucessfully deleted'
+        })
     })
 })
 

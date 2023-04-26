@@ -4,7 +4,7 @@ const cors = require('cors')
 const postRoutes = require('./backend/postRoutes')
 const connectDB = require('./backend/config/db')
 
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 3001
 
 const app = express()
 

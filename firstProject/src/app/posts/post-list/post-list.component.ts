@@ -13,13 +13,17 @@ export class PostListComponent implements OnInit{ //lifecycle hook
     constructor(public postService: PostService){}
     private postSub: Subscription;
     // @Input() posts: Post[] = [];   
-    posts: Post[] = [];   
-
+    posts: Post[] = [];
     ngOnInit(){ //whenever a component is created
         this.postService.getPosts()
         this.postSub = this.postService.getPostUpdateListener()
         .subscribe((allPosts: Post[]) => {
             this.posts = allPosts;
         })
+    }
+
+    onDelete(postId: string){
+        console.log("ID of post to be deleted",postId);
+        this.postService.deletePost(postId);
     }
 }

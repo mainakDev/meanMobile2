@@ -2,7 +2,10 @@ import { Injectable } from "@angular/core";
 import { Post } from "./post.model"
 import { Subject } from "rxjs";
 import { HttpClient } from "@angular/common/http";
-
+import { map } from "rxjs/operators";
+// angular pipes & rxjs pipes are different
+// Array.map() & rxjs map() iterates over data from our APP(Observable data)
+// [1,2,3,4]
 @Injectable({providedIn: 'root'})
 export class PostService{
     //injecting httpclient
@@ -11,12 +14,20 @@ export class PostService{
     private posts: Post[] = [] 
     postData: Post[] = []
     getPosts(){
-        this.http.get<{message: string, postData: Post[]}>('http://localhost:3000/api/posts/')
+        this.http.get<{message: string, posts: any}>('http://localhost:3000/api/posts/')
+        .pipe(map((postData) => {
+            return postData.posts.map((post) => {
+                return{
+                    title: post.title,
+                    content: post.content,
+                    id : post._id
+                }
+            });
+        }))
         .subscribe((data) => {
-            this.postData = data.postData;
-            this.postUpdated.next([...this.postData])
+            this.posts = data;
+            this.postUpdated.next([...this.posts])
         })
-        // return [...this.posts]; //spread operator to copy contents from posts array
     }
 
     getPostUpdateListener(){
@@ -33,6 +44,15 @@ export class PostService{
         .subscribe(data => {
             this.postData.push(post);
             this.postUpdated.next([...this.postData])
+        })
+    }
+
+    deletePost(postId: string){
+        this.http.delete('http://localhost:3000/api/posts/'+postId)
+        .subscribe(() => {
+            const updatedPosts = this.posts.filter(post => post.id != postId);
+            this.posts = updatedPosts;
+            this.postUpdated.next([...this.posts]);
         })
     }
 }
