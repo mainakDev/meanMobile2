@@ -9,11 +9,12 @@ router.post('/', (req, res, next) => {
         content: req.body.content,
     });
     console.log(post);
-    post.save();
-    res.status(201).json({
-        message: 'Succesfully added POST!',
-        posts: post
-    })
+    post.save().then(createdPost => {
+        res.status(201).json({
+            message: 'Succesfully added POST!',
+            postId: createdPost._id
+        });
+    });
 })
 
 router.get('/', (req, res, next) => {
